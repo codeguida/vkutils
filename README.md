@@ -14,7 +14,7 @@ pip install -r VKSpySystem/requirements.txt
 # Всі разом
 pip install -r requirements.txt
 ```
-Також в кожному скрипті потрібно логінитися, тому заповньте змінні login та password. 
+Також в кожному скрипті потрібно логінитися, тому заповніть змінні login та password. 
 
 ### Ліцензія
 Цей проект розповсюджується за ліцензією [GNU General Public License, version 3](http://opensource.org/licenses/GPL-3.0)
