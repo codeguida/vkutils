@@ -56,4 +56,4 @@ vkapi = vk.API('4766382', login, password)
 
 user_id = input('Введіть id користувача або посилання на сторінку: ')
 user_id = getUserId(user_id)
-getLikes(user_id, 5)
+getLikes(user_id, 5) # 5 -- глибина пошуку. Кількість постів, що буде перевірена: 100*x = 100*5 = 500
