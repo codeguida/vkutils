@@ -31,7 +31,7 @@ def getUserAge(user):
         results = vkapi.users.search(q=q, age_to=i)
         for result in results['items']:
             if int(result['id']) == user:
-                print("Вік: {} лет".format(i))
+                print("Вік: {} років".format(i))
                 age = i
                 break
     
