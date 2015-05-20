@@ -5,8 +5,8 @@ from urllib.request import urlretrieve
 import vk, os, time, math
 
 # Ваш логін, пароль
-login = ''
-password = ''
+login = os.environ["VK_LOGIN"]
+password = os.environ["VK_PASS"]
 
 # Авторизація
 vkapi = vk.API('4567667', login, password)

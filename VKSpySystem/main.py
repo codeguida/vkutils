@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding: UTF-8 -*-
 
-import vk
+import vk, os
 from time import sleep
 
 def getUserId(link):
@@ -13,6 +13,33 @@ def getUserId(link):
     else:
         id = id.replace('id', '')
     return int(id)
+
+
+def getUserInfo(user_id):
+    template = "\n{first_name} {last_name} (id: {id})"
+
+    info = vkapi.users.get(user_ids=user_id, fields='bdate, home_town', name_case='Nom')
+    inf = template.format(**info[0])
+    print(inf)
+    return info
+
+
+def getUserAge(user):
+    q = "{first_name} {last_name}".format(**vkapi.users.get(user_ids=user)[0])
+    age = -1
+    for i in range(14, 101):
+        results = vkapi.users.search(q=q, age_to=i)
+        for result in results['items']:
+            if int(result['id']) == user:
+                print("Вік: {} лет".format(i))
+                age = i
+                break
+    
+        if age != -1:
+            break
+        sleep(0.25)
+    return age
+
 
 def getLikes(user_id, count):
     subscriptions_list = vkapi.users.getSubscriptions(user_id=user_id, extended=0)['groups']['items']
@@ -31,8 +58,6 @@ def getLikes(user_id, count):
             posts.update({x['post_id'] : x['source_id'] for x in newsfeed['items']})
             next_from = newsfeed['next_from']
 
-        
-
     liked_posts = []
 
     print('Лайкнуті пости:')
@@ -48,12 +73,14 @@ def getLikes(user_id, count):
         sleep(0.25)
     return liked_posts
 
-login = ''
-password = ''
+login = os.environ["VK_LOGIN"]
+password = os.environ["VK_PASS"]
 
 # Авторизація
-vkapi = vk.API('4766382', login, password)
+vkapi = vk.EnterCaptchaAPI('4766382', login, password)
 
 user_id = input('Введіть id користувача або посилання на сторінку: ')
 user_id = getUserId(user_id)
+getUserInfo(user_id)
+getUserAge(user_id)
 getLikes(user_id, 5) # 5 -- глибина пошуку. Кількість постів, що буде перевірена: 100*x = 100*5 = 500
