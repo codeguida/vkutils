@@ -9,7 +9,7 @@ login = os.environ["VK_LOGIN"]
 password = os.environ["VK_PASS"]
 
 # Авторизація
-vkapi = vk.API('4567667', login, password)
+vkapi = vk.EnterCaptchaAPI('4567667', login, password)
 
 url = input("Введіть url альбому: ")
 # Магія
