@@ -65,7 +65,7 @@ last = messages['items'][0]['id']
 
 while True:
     try:
-        messages = vkapi.messages.get(last_message_id=last)
+        messages = vkapi.messages.get(last_message_id=last, timeout=5)
     except Exception as e:
         print(e)
         sleep(4)
