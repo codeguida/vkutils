@@ -70,7 +70,10 @@ def sendMessage(**kw):
         print("Відправити повідомлення {first_name} {last_name}".format(**user))
     if 'message' not in kw:
         message = input(">> ")
-    vkapi.messages.send(message=message, **kw)
+        vkapi.messages.send(message=message, **kw)
+    else:
+        vkapi.messages.send(**kw)
+
     if 'user_id' in kw:
         yn = input("Відкрити діалог з користувачем? [y,т/n,н][n]: ")
         if 'yes' in yn.lower() or 'y' in yn.lower() or 'т' in yn.lower() or 'так' in yn.lower():
@@ -139,6 +142,13 @@ def loadMessagees(filename):
 
 
 vkapi = vk.API('4766382', '', '')
+
+while 1:
+    try:
+        print(exec(input(">>> ")))
+    except Exception as e:
+        print(e)
+        continue
 
 
 
