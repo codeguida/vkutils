@@ -8,7 +8,7 @@
 
 **printMessages(messages)** - службова функція.
 
-**showDialogs(\\**kw)** - відображає в зручному вигляді діалоги. Приймає тіж самі аргументи, що й vkapi.messages.getDialogs.
+**showDialogs(\*\*kw)** - відображає в зручному вигляді діалоги. Приймає тіж самі аргументи, що й vkapi.messages.getDialogs.
 
 **showDialog(\*\*kw)** - відображає історію переписки з користувачем в зручному вигляді. Приймає ті ж самі аргументи, що й vkapi.messages.getHistory.
 
