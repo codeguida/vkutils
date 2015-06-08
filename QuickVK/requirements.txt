@@ -1,0 +1,2 @@
+vk == 1.5.3.egg
+colorama == 0.3.3
