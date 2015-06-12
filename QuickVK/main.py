@@ -1,5 +1,5 @@
 from colorama import Fore, Style, init
-from pprint import pprint, pformat
+from pprint import pformat
 import vk
 from time import  sleep
 import os, sys
@@ -32,26 +32,26 @@ def format(str, *args, **kw): # власні милиці, без них нія�
     buf.update(formating)
     return str.format(*args, **buf)
 
-def printMessages(messages):
+def printMessages(messages, outfile=sys.stdout):
     for mes in messages:
         if "from_id" in mes:
             user = vkapi.users.get(user_ids=mes['from_id'])[0]
         else:
             user = vkapi.users.get(user_ids=mes['user_id'])[0]
-        print(format(MESSAGE_AUTHOR, **user), end='')
-        print(mes_statuses[mes['read_state']])
-        print(mes['body'])
+        print(format(MESSAGE_AUTHOR, **user), end='', file=outfile)
+        print(mes_statuses[mes['read_state']], file=outfile)
+        print(mes['body'], file=outfile)
         if 'fwd_messages' in mes:
             for fwd_mes in mes['fwd_messages']:
                 fwd_user = vkapi.users.get(user_ids=fwd_mes['user_id'])[0]
-                print(format(FWD_MESSAGE_AUTHOR, **fwd_user))
-                print(">>> {body}".format(**fwd_mes))
+                print(format(FWD_MESSAGE_AUTHOR, **fwd_user), file=outfile)
+                print(">>> {body}".format(**fwd_mes), file=outfile)
                 sleep(0.25)
         if 'attachments' in mes:
-            print(format("{yellow}{bold}Attachments:{reset}"))
+            print(format("{yellow}{bold}Attachments:{reset}"), file=outfile)
             for a in mes['attachments']:
-                print("=== Type: {type}".format(**a))
-                pprint(a)
+                print("=== Type: {type}".format(**a), file=outfile)
+                print(pformat(a), file=outfile)
         print(format("{bold}{0}{reset}", "="*term_size))
         sleep(0.25)
 
@@ -117,23 +117,7 @@ def copyMessages(id, count, filename=None):
         f = open(str(id) + "-messages.txt", 'w', encoding='utf-8')
     else:
         f = open(filename, 'w', encoding='utf-8')
-    for mes in messages:
-
-        print(format(MESSAGE_AUTHOR, **users[mes['from_id']]), end='', file=f)
-        print(mes_statuses[mes['read_state']], file=f)
-        print(mes['body'], file=f)
-        if 'fwd_messages' in mes:
-            for fwd_mes in mes['fwd_messages']:
-                fwd_user = vkapi.users.get(user_ids=fwd_mes['user_id'])[0]
-                print(format(FWD_MESSAGE_AUTHOR, **fwd_user), file=f)
-                print(">>> {body}".format(**fwd_mes), file=f)
-                sleep(0.25)
-        if 'attachments' in mes:
-            print(format("{yellow}{bold}Attachments:{reset}"), file=f)
-            for a in mes['attachments']:
-                print("=== Type: {type}".format(**a), file=f)
-                f.write(pformat(a))
-        print(format("{bold}{0}{reset}", "="*term_size), file=f)
+    printMessages(messages, outfile=f)
     f.close()
 
 def loadMessagees(filename):
@@ -141,7 +125,7 @@ def loadMessagees(filename):
         print(f.read())
 
 
-vkapi = vk.API('4766382', '', '')
+vkapi = vk.API(access_token='')
 
 while 1:
     try:
