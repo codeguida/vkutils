@@ -79,7 +79,7 @@ def sendMessage(**kw):
         if 'yes' in yn.lower() or 'y' in yn.lower() or 'т' in yn.lower() or 'так' in yn.lower():
             showDialog(vkapi, count=10, user_id=kw['user_id'])
 
-def dumpLiked(count=1, mode="posts"):
+def copyLiked(count=1, mode="posts"):
     likes = ''
     for i in range(count):
         if mode == "posts":
@@ -94,14 +94,14 @@ def dumpLiked(count=1, mode="posts"):
         sleep(0.25)
     return likes
 
-def dumpGroups(count):
+def copyGroups(count):
     groups = ''
     raw = vkapi.groups.get(count=count, extended=1, fields="screen_name")
     for group in raw['items']:
         groups += 'vk.com/{screen_name}\n'.format(**group)
     return groups
 
-def dumpMessages(id, count, filename=None):
+def copyMessages(id, count, filename=None):
     messages = []
     user = vkapi.users.get(user_ids=id)[0]
     cur_user = vkapi.users.get()[0]
