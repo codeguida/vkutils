@@ -13,21 +13,21 @@ formating = {"green": Fore.GREEN,
              "bold": Style.BRIGHT,
              "reset": Style.RESET_ALL}
 
-mes_statuses = {1: "{bold}{blue}прочитане{reset} ==".format(**formating),
-                0: "{bold}{red}непрочитане{reset} ==".format(**formating)}
+mes_statuses = {1: "{bold}{blue}readed{reset} ==".format(**formating),
+                0: "{bold}{red}unreaded{reset} ==".format(**formating)}
 
 term_size = 109
 
 init()
 
-if sys.platform == 'win32': # бо смайлики викликають ексепшн
+if sys.platform == 'win32': # because smiles cause exception
     os.system('chcp 65001')
 
 MESSAGE_AUTHOR = "{cyan}{first_name} {last_name}{reset} == {green}(https://vk.com/id{bold}{red}{id}{reset}{green}){reset} == "
 FWD_MESSAGE_AUTHOR = ">> {yellow}{first_name} {last_name}{reset} == {green}(https://vk.com/id{bold}{red}{id}{reset}{green}){reset}"
 
 
-def format(str, *args, **kw): # власні милиці, без них ніяк
+def format(str, *args, **kw):
     buf = kw.copy() if kw else {}
     buf.update(formating)
     return str.format(*args, **buf)
@@ -67,7 +67,7 @@ def showDialog(**kw):
 def sendMessage(**kw):
     if 'user_id' in kw:
         user = vkapi.users.get(user_ids=kw['user_id'], name_case='dat')[0]
-        print("Відправити повідомлення {first_name} {last_name}".format(**user))
+        print("Send a message to {first_name} {last_name}".format(**user))
     if 'message' not in kw:
         message = input(">> ")
         vkapi.messages.send(message=message, **kw)
@@ -75,7 +75,7 @@ def sendMessage(**kw):
         vkapi.messages.send(**kw)
 
     if 'user_id' in kw:
-        yn = input("Відкрити діалог з користувачем? [y,т/n,н][n]: ")
+        yn = input("Open dialogue with the user? [y,т/n,н][n]: ")
         if 'yes' in yn.lower() or 'y' in yn.lower() or 'т' in yn.lower() or 'так' in yn.lower():
             showDialog(vkapi, count=10, user_id=kw['user_id'])
 

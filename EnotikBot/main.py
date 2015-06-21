@@ -38,13 +38,13 @@ def cgra(id, mode='u'):
 
 def print_help(id, mode='u'):
     try:
-        message = """=== Система \"Єнотик\" ===
-        Дотсупні команди:
-        &#_9989; ~bash~ -- випадкова цитата з bash.im 
-        &#_9989; ~cgra~ -- випадкова стаття з Codeguida
-        &#_9989; ~help~ -- показує цю довідку
+        message = """=== System \"Enotik\" ===
+        Available commands:
+        &#_9989; ~bash~ -- random quote from bash.im 
+        &#_9989; ~cgra~ -- random article from Codeguida
+        &#_9989; ~help~ -- show this help
 
-        Автор: OlegWock, 2015, спеціально для Codeguida"""
+        Author: OlegWock, 2015, specifically for Codeguida"""
         if mode == 'c':
             vkapi.messages.send(chat_id=id, message=message)
         else:
@@ -58,7 +58,6 @@ password = os.environ["VK_PASS"]
 
 # Авторизація
 vkapi = vk.EnterCaptchaAPI('4766382', login, password)
-print('Успішно авторизувався')
 
 messages = vkapi.messages.get(count=1)
 last = messages['items'][0]['id']

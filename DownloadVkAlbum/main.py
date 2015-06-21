@@ -11,7 +11,7 @@ password = os.environ["VK_PASS"]
 # Авторизація
 vkapi = vk.EnterCaptchaAPI('4567667', login, password)
 
-url = input("Введіть url альбому: ")
+url = input("Enter album url: ")
 # Магія
 album_id = url.split('/')[-1].split('_')[1]
 owner_id = url.split('/')[-1].split('_')[0].replace('album', '')
@@ -36,14 +36,14 @@ for j in range(math.ceil(photos_count / 1000)): # Підсчитуємо скі�
     for photo in photos['items']:
         counter += 1
         url = photo['photo_604'] # Отримуємо адресу зображення
-        print('завантажую фото № {} із {}. Прогрес: {} %'.format(counter, photos_count, prog))
+        print('Downloading photo № {} of {}. Progress:'.format(counter, photos_count, prog))
         prog = round(100/photos_count*counter,2)
         try:
             urlretrieve(url, photo_folder + "/" + os.path.split(url)[1]) # Завантажуємо та зберігаємо файл
         except Exception:
-            print('Відбулася помилка, файл пропущено.')
+            print('An error occurred, file skipped.')
             breaked += 1
             continue
 time_for_dw = time.time() - time_now
-print("\nВ черзі було {} файлів. З них вдало завантажено {} файлів, {} не вдалося завантажити. Затрачено часу: {} сек.". format(photos_count, photos_count-breaked, breaked, round(time_for_dw,1)))
+print("\nIn turn was {} files. Among them successfully downloaded files {}, {} failed to load. Time spent: {} s.". format(photos_count, photos_count-breaked, breaked, round(time_for_dw,1)))
 

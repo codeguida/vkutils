@@ -60,7 +60,7 @@ def getLikes(user_id, count):
 
     liked_posts = []
 
-    print('Лайкнуті пости:')
+    print('Liked posts:')
     for post in posts.items():
         try:
             isLiked = vkapi.likes.isLiked(user_id=user_id, item_id=post[0], type="post", owner_id=post[1], timeout=5)['liked']
@@ -73,13 +73,11 @@ def getLikes(user_id, count):
         sleep(0.25)
     return liked_posts
 
-login = os.environ["VK_LOGIN"]
-password = os.environ["VK_PASS"]
 
 # Авторизація
-vkapi = vk.EnterCaptchaAPI('4766382', login, password)
+vkapi = vk.API(access_token=os.environ["VK_TOKEN"])
 
-user_id = input('Введіть id користувача або посилання на сторінку: ')
+user_id = input('Enter your user id or links to page: ')
 user_id = getUserId(user_id)
 getUserInfo(user_id)
 getUserAge(user_id)
