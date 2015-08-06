@@ -77,7 +77,7 @@ def sendMessage(**kw):
     if 'user_id' in kw:
         yn = input("Open dialogue with the user? [y,т/n,н][n]: ")
         if 'yes' in yn.lower() or 'y' in yn.lower() or 'т' in yn.lower() or 'так' in yn.lower():
-            showDialog(vkapi, count=10, user_id=kw['user_id'])
+            showDialog(count=10, user_id=kw['user_id'])
 
 def copyLiked(count=1, mode="posts"):
     likes = ''
@@ -125,7 +125,7 @@ def loadMessagees(filename):
         print(f.read())
 
 
-vkapi = vk.API(access_token='')
+vkapi = vk.API(access_token=os.environ["VK_TOKEN"])
 
 while 1:
     try:

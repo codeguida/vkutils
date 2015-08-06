@@ -53,11 +53,8 @@ def print_help(id, mode='u'):
         print(e)
 
 
-login = os.environ["VK_LOGIN"]
-password = os.environ["VK_PASS"]
-
 # Авторизація
-vkapi = vk.EnterCaptchaAPI('4766382', login, password)
+vkapi = vk.EnterCaptchaAPI(access_token=os.environ["VK_TOKEN"])
 
 messages = vkapi.messages.get(count=1)
 last = messages['items'][0]['id']
