@@ -65,8 +65,9 @@ def getLikes(user_id, count):
     for post in posts.items():
         try:
             isLiked = vkapi.likes.isLiked(user_id=user_id, item_id=post[0], type="post", owner_id=post[1], timeout=5)['liked']
-        except Exception:
+        except Exception as e:
             print("ERROR!!! " + 'vk.com/wall{}_{}'.format(post[1], post[0]))
+            print(e)
             isLiked = 0
         if isLiked:
             liked_posts.append('vk.com/wall{}_{}'.format(post[1], post[0]))
