@@ -73,7 +73,7 @@ def getLikes(user_id, count):
         if isLiked:
             liked_posts.append('vk.com/wall{}_{}'.format(post[1], post[0]))
             print('vk.com/wall{}_{}'.format(post[1], post[0]))
-        sleep(0.35)
+        sleep(0.4)
     return liked_posts
 
 
