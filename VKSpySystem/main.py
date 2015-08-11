@@ -57,6 +57,7 @@ def getLikes(user_id, count):
     
             posts.update({x['post_id'] : x['source_id'] for x in newsfeed['items']})
             next_from = newsfeed['next_from']
+            sleep(0.35)
 
     liked_posts = []
 
