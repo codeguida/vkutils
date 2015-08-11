@@ -53,11 +53,12 @@ def getLikes(user_id, count):
 
     if count != 1:
         for c in range(count-1):
+            sleep(0.35)
             newsfeed = vkapi.newsfeed.get(filters='post', source_ids=', '.join(groups_list), count=100, timeout=10, start_from=next_from)
     
             posts.update({x['post_id'] : x['source_id'] for x in newsfeed['items']})
             next_from = newsfeed['next_from']
-            sleep(0.35)
+        sleep(0.35)
 
     liked_posts = []
 
