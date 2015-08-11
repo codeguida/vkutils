@@ -37,7 +37,7 @@ def getUserAge(user):
     
         if age != -1:
             break
-        sleep(0.25)
+        sleep(0.35)
     return age
 
 
@@ -70,7 +70,7 @@ def getLikes(user_id, count):
         if isLiked:
             liked_posts.append('vk.com/wall{}_{}'.format(post[1], post[0]))
             print('vk.com/wall{}_{}'.format(post[1], post[0]))
-        sleep(0.25)
+        sleep(0.35)
     return liked_posts
 
 
