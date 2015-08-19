@@ -1,2 +1,2 @@
 ## Download VK album
-Просто скрипт для завантаження всіх фото з альбому, не більше, не менше.
+Simply script to download all photos from the album, no more, no less.

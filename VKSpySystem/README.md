@@ -1,16 +1,16 @@
 ## VkSpySystem
-Дозволяє вести слідження за користувачем VK. Поточні функціЇ:
+Allows to monitor a VK user. Current functions:
 	
-* Відстеження, що користувач лайкав в своїй стрічці новин
-* Визначення віку користувача, навіть якщо він прихований
+* Tracking user likes in his newsfeed
+* Determining the age of the user, even if it is hidden
 
-### Як користуватися
-В файлі **main.py** в змінних login та password вкажіть свій логін та пароль. Все інше програма зробить сама. Задати глибину сканування можна вказуючи 2 аргумент функції **getLikes(user_id, count)**. Наприклад:
+### How to use
+Set depth of scanning you can by setting second argument of function **getLikes(user_id, count)**. For example:
 ```python
-getLikes(user_id, 5) # 500 постів
-getLikes(user_id, 100) # 10 000 постів
-# Невеличке інфо про користувача
+getLikes(user_id, 5) # 500 poasts
+getLikes(user_id, 100) # 10 000 posts
+# Small info about user
 getUserInfo(user_id)
-# Знаходження віку користувача 
+# Finding out user age
 getUserAge(user_id)
 ```

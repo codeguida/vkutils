@@ -1,9 +1,9 @@
-## Бот "Єнотик"
+## Bot "Raccoon"
 
-Вміє видавати випадкову цитату з [башу](http://bash.im/) та випадкову статтю з Codeguida. 
+It can Вміє publish random quote from [bash.im](http://bash.im/) and random article from [Codeguida](http://codeguida.com/).
 
-### Команди
+### Comands
 
-* `~bash~` - цитата з башу
-* `~cgra~` - стаття з Codeguida
-* `~help~` - виводить довідку
+* `~bash~` - quote from bash
+* `~cgra~` - article from Codeguida
+* `~help~` - help

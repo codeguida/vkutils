@@ -1,24 +1,24 @@
 ## VK utils
-Збірник скриптів для полегшення роботи з [VK](http://vk.com)
+Collection of script for easiest work with [VK](http://vk.com)
 
-### Зміст
-**DownloadVkAlbum** — завантаження альбому спільноти/користувача.
+### Contents
+**DownloadVkAlbum** — downloading full photo album of user or group.
 
-**VKSpySystem** — стеження за користувачем. На даний момент вміє знаходити вік користувача та перевіяти, що останнім часом він лайкав.
+**VKSpySystem** — tracking user. At the moment it can find out user age and check last liked posts.
 
-**EnotikBot** — пухнастий бот. Вміє видавати випадкову цитату з [bash.im](http://bash.im/) та випадкову статтю з [Codeguida](http://codeguida.com/).
+**EnotikBot** — fluffy bot. It can Вміє publish random quote from [bash.im](http://bash.im/) and random article from [Codeguida](http://codeguida.com/).
 
-**QuickVK** — система для швидкого копіювання важливих даних аккаунту з терміналу. Також можна читатаи та відправляти повідомлення.
+**QuickVK** — system for quick backuping important data from terminal. Also it can be used to read and send messages.
 
-###  Розгортання 
-Для роботи потрібен Python 3. Також потрібно встановити залежності. Це можна зробити як лише для окремого скрипта, так і всі одразу.
+###  Deploying
+ДTo work needed Python 3. You also need to install dependence. This can be done only for a single script, and all at once.
 ```bash
-# Окремий скрипт
+# Single script
 pip install -r VKSpySystem/requirements.txt
-# Всі разом
+# All scripts
 pip install -r requirements.txt
 ```
-Також в кожному скрипті потрібно логінитися, тому заповніть змінні login та password. 
+Also every script you need to login, so fill the variables login and password. Some instead of login and password need a token.
 
-### Ліцензія
-Цей проект розповсюджується за ліцензією [GNU General Public License, version 3](http://opensource.org/licenses/GPL-3.0)
+### License
+This project is distributed under [GNU General Public License, version 3](http://opensource.org/licenses/GPL-3.0)
