@@ -82,6 +82,7 @@ vkapi = vk.API(access_token=os.environ["VK_TOKEN"])
 
 user_id = input('Enter your user id or links to page: ')
 user_id = getUserId(user_id)
+sleep(0.4)
 getUserInfo(user_id)
 getUserAge(user_id)
 getLikes(user_id, 5) # 5 -- глибина пошуку. Кількість постів, що буде перевірена: 100*x = 100*5 = 500

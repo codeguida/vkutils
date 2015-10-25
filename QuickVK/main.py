@@ -3,7 +3,9 @@ from pprint import pformat
 import vk
 from time import  sleep
 import os, sys
+from datetime import datetime
 
+sl = lambda: sleep(0.4)
 formating = {"green": Fore.GREEN,
              "red": Fore.RED,
              "white": Fore.WHITE,
@@ -16,7 +18,7 @@ formating = {"green": Fore.GREEN,
 mes_statuses = {1: "{bold}{blue}readed{reset} ==".format(**formating),
                 0: "{bold}{red}unreaded{reset} ==".format(**formating)}
 
-term_size = 109
+term_size = 100
 
 init()
 
@@ -34,26 +36,56 @@ def format(str, *args, **kw):
 
 def printMessages(messages, outfile=sys.stdout):
     for mes in messages:
+        if "chat_id" in mes:
+            print(format("{green}[chat {0}]{reset} {1}", mes['chat_id'], mes['title']))
+        
         if "from_id" in mes:
-            user = vkapi.users.get(user_ids=mes['from_id'])[0]
+            user = vkapi.users.get(user_ids=mes['from_id'], fields="online")[0]
         else:
-            user = vkapi.users.get(user_ids=mes['user_id'])[0]
-        print(format(MESSAGE_AUTHOR, **user), end='', file=outfile)
-        print(mes_statuses[mes['read_state']], file=outfile)
+            user = vkapi.users.get(user_ids=mes['user_id'], fields="online")[0]
+
+        sl()
+        online = "{green}[✔]{reset} " if user['online'] else "{red}[✖]{reset} "
+        print(format(online + MESSAGE_AUTHOR, **user), end='', file=outfile)
+        print(mes_statuses[mes['read_state']], file=outfile, end='')
+        print(" {} ==".format(datetime.fromtimestamp(mes['date']).strftime('%H:%M %d.%m.%Y')), file=outfile)
         print(mes['body'], file=outfile)
         if 'fwd_messages' in mes:
             for fwd_mes in mes['fwd_messages']:
                 fwd_user = vkapi.users.get(user_ids=fwd_mes['user_id'])[0]
                 print(format(FWD_MESSAGE_AUTHOR, **fwd_user), file=outfile)
                 print(">>> {body}".format(**fwd_mes), file=outfile)
-                sleep(0.25)
+                sl()
         if 'attachments' in mes:
             print(format("{yellow}{bold}Attachments:{reset}"), file=outfile)
             for a in mes['attachments']:
                 print("=== Type: {type}".format(**a), file=outfile)
                 print(pformat(a), file=outfile)
-        print(format("{bold}{0}{reset}", "="*term_size))
-        sleep(0.25)
+        print(format("{bold}{0}{reset}", "="*term_size), file=outfile)
+        sl()
+
+
+def showFriends(only_online=False, **kw):
+    if not "fields" in kw:
+        kw['fields'] = 'online'
+    else:
+        kw['fields'] += ", online"
+    if not "order" in kw:
+        kw['order'] = 'hints'
+    frs = vkapi.friends.get(**kw)['items']
+    if only_online:
+        frs = list(filter(lambda x: x['online'], frs))
+    max_no_symbs = len(str(len(frs)))
+
+    for i, fr in enumerate(frs):
+        if fr['online']:
+            print(format("{green}[{0}][✔]", str(i+1).zfill(max_no_symbs)), end=" ")
+        else:
+            print(format("[{0}][✖]", str(i+1).zfill(max_no_symbs)), end=" ")
+        print("{first_name} {last_name} (https://vk.com/id{id})".format(**fr), end="")
+        print(format("{reset}"))
+
+
 
 
 def showDialogs(**kw):
@@ -104,14 +136,16 @@ def copyGroups(count):
 def copyMessages(id, count, filename=None):
     messages = []
     user = vkapi.users.get(user_ids=id)[0]
+    sl()
     cur_user = vkapi.users.get()[0]
+    sl()
     users = {cur_user['id']: cur_user,
              user['id']: user}
     for i in range(count):
         buf = vkapi.messages.getHistory(user_id=id, count=200, offset=i*200)
         for m in buf['items']:
             messages.append(m)
-        sleep(0.25)
+        sl()
     messages = messages[::-1]
     if filename == None:
         f = open(str(id) + "-messages.txt", 'w', encoding='utf-8')
@@ -120,19 +154,19 @@ def copyMessages(id, count, filename=None):
     printMessages(messages, outfile=f)
     f.close()
 
-def loadMessagees(filename):
+def loadMessages(filename):
     with open(filename, encoding='utf-8') as f:
         print(f.read())
 
 
-vkapi = vk.API(access_token=os.environ["VK_TOKEN"])
-
-while 1:
-    try:
-        print(exec(input(">>> ")))
-    except Exception as e:
-        print(e)
-        continue
+vkapi = vk.API(access_token="")
+if __name__ == "__main__":
+    while 1:
+        try:
+            print(exec(input(">>> ")))
+        except Exception as e:
+            print(e)
+            continue
 
 
 
