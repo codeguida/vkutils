@@ -33,7 +33,8 @@ text_lines = textwrap.wrap(text, width=72)
 for i, line in enumerate(text_lines):
     imd.text((0, i*18), line, font=fnt, fill=(0, 0, 0))
 del imd
-im = im.crop((0, 0, 800, 18*len(text_lines)))
+crop_bottom = 18*len(text_lines) if len(text_lines) > 4 else 18*4
+im = im.crop((0, 0, 800, crop_bottom))
 im.save("output.jpg", "jpeg")
 
 
