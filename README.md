@@ -10,6 +10,8 @@ Collection of script for easiest work with [VK](http://vk.com)
 
 **QuickVK** — system for quick backuping important data from terminal. Also it can be used to read and send messages.
 
+**SelfDestroyMessages** — messages that are deleted ourselves
+
 ###  Deploying
 ДTo work needed Python 3. You also need to install dependence. This can be done only for a single script, and all at once.
 ```bash

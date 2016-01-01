@@ -159,7 +159,7 @@ def loadMessages(filename):
         print(f.read())
 
 
-vkapi = vk.API(access_token="")
+vkapi = vk.API(access_token=os.environ["VK_TOKEN"])
 if __name__ == "__main__":
     while 1:
         try:
